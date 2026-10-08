@@ -1,10 +1,12 @@
 export type ScreenId = 
+  | 'screen-0-trail'
   | 'screen-1-splash'
   | 'screen-2-name'
   | 'screen-3-age'
   | 'screen-4-concern'
   | 'screen-5-home'
   | 'screen-6-routine';
+
 
 export type ChildAgeGroup = '3-5 years old' | '6-9 years old' | '10-12 years old' | '13-15 years old';
 

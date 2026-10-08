@@ -167,7 +167,8 @@ export const DesignTokensPanel: React.FC<DesignTokensPanelProps> = ({
             <li><strong>Device Specs:</strong> iPhone 17 (375x812pt baseline, r: 48px).</li>
             <li><strong>Touch Zones:</strong> All buttons exceed 44x44px hitbox.</li>
             <li><strong>Wavy Nav:</strong> 76px ergonomic curved bottom anchor with mascot center bubble.</li>
-            <li><strong>6 Screens:</strong> Complete journey from brand immersion to personalised routine & checkout.</li>
+            <li><strong>Scenic Trail Loading Screen:</strong> Inspired by the Pacific Crest Trail reference layout, featuring the animated running Tuco cloud mascot, botanical sky & mountain layers, interactive live quiz questions, and checkpoint formulation cards.</li>
+            <li><strong>Full App Lifecycle:</strong> Trail Loading & Formulation → Brand Splash → Step 1 Name → Step 2 Age → Step 3 Concern → Discovery Hub & Wavy Nav → Personalized 3-Step Routine.</li>
           </ul>
         </div>
       </div>

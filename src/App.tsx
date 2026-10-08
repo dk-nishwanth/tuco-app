@@ -21,6 +21,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { PhoneFrame } from './components/PhoneFrame';
+import { ScreenScenicTrailLoading } from './components/screens/ScreenScenicTrailLoading';
 import { Screen1Splash } from './components/screens/Screen1Splash';
 import { Screen2Name } from './components/screens/Screen2Name';
 import { Screen3Age } from './components/screens/Screen3Age';
@@ -35,8 +36,8 @@ import { TUCO_PRODUCTS } from './data/tucoData';
 import { ScreenId, QuizState, Product, CartItem, VisualStyle, ViewMode } from './types';
 
 export default function App() {
-  // Navigation & Screen selection
-  const [activeScreenId, setActiveScreenId] = useState<ScreenId>('screen-1-splash');
+  // Navigation & Screen selection - Default to the new Scenic Running Mascot Trail Screen!
+  const [activeScreenId, setActiveScreenId] = useState<ScreenId>('screen-0-trail');
   const [viewMode, setViewMode] = useState<ViewMode>('canvas'); // 'canvas' | 'simulator'
   const [visualStyle, setVisualStyle] = useState<VisualStyle>('hifi'); // 'hifi' | 'wireframe'
   const [canvasZoom, setCanvasZoom] = useState<number>(0.85);
@@ -123,6 +124,23 @@ export default function App() {
   }, []);
 
   const screensConfig = [
+    {
+      id: 'screen-0-trail' as ScreenId,
+      number: 'Trail',
+      title: 'iPhone 17 - Trail Loading',
+      subtitle: 'Scenic Running Mascot & Live Quiz',
+      render: (
+        <ScreenScenicTrailLoading
+          quizState={quizState}
+          onUpdateQuizState={(updates) => setQuizState((prev) => ({ ...prev, ...updates }))}
+          onCompleteTrail={() => {
+            setActiveScreenId('screen-5-home');
+            handleSelectScreenInCanvas('screen-5-home');
+          }}
+          isWireframe={visualStyle === 'wireframe'}
+        />
+      ),
+    },
     {
       id: 'screen-1-splash' as ScreenId,
       number: '1',
@@ -321,14 +339,14 @@ export default function App() {
                   key={s.id}
                   type="button"
                   onClick={() => setActiveScreenId(s.id)}
-                  className={`w-6 h-6 rounded-lg text-xs font-bold font-fredoka flex items-center justify-center transition-all ${
+                  className={`min-w-6 px-1.5 h-6 rounded-lg text-[11px] font-bold font-fredoka flex items-center justify-center transition-all ${
                     activeScreenId === s.id
-                      ? 'bg-amber-400 text-stone-950'
+                      ? 'bg-amber-400 text-stone-950 shadow-xs'
                       : 'text-stone-400 hover:bg-stone-800'
                   }`}
                   title={`${s.title}: ${s.subtitle}`}
                 >
-                  {s.number}
+                  {s.id === 'screen-0-trail' ? '🏃 Trail' : s.number}
                 </button>
               ))}
             </div>
@@ -513,7 +531,7 @@ export default function App() {
                       : 'text-stone-300 hover:bg-stone-800'
                   }`}
                 >
-                  <span className="font-mono text-[11px] opacity-70">0{s.number}</span>
+                  <span className="font-mono text-[11px] opacity-70">{s.id === 'screen-0-trail' ? '🏃' : `0${s.number}`}</span>
                   <div>
                     <span className="block">{s.subtitle}</span>
                   </div>
