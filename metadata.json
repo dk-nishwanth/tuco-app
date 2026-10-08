@@ -1,0 +1,7 @@
+{
+  "name": "Tuco Kids App Wireframes & Interactive Prototype",
+  "description": "Interactive wireframe studio and high-fidelity prototype screens for Tuco Kids, featuring 6 mobile screens with onboarding, personalized skincare discovery, and shop routine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
