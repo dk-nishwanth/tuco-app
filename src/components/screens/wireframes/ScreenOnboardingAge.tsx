@@ -37,10 +37,20 @@ export const ScreenOnboardingAge: React.FC<ScreenOnboardingAgeProps> = ({
         isWireframe ? 'bg-zinc-100 text-zinc-900' : 'bg-white text-stone-900'
       }`}
     >
+      {/* Authentic iOS Status Bar */}
+      <div className="w-full flex items-center justify-between text-xs px-6 pt-3 pb-1 font-semibold text-stone-800 shrink-0">
+        <span className="font-medium text-[11px]">9:41</span>
+        <div className="w-18 h-3.5 bg-black/20 rounded-full" />
+        <div className="flex items-center gap-1 text-[10px]">
+          <span>5G</span>
+          <span className="w-4 h-2 border border-current rounded-2xs inline-block relative after:content-[''] after:w-0.5 after:h-1 after:bg-current after:absolute after:-right-0.5 after:top-0.5" />
+        </div>
+      </div>
+
       {/* ========================================================= */}
       {/* TOP HEADER (Matching image 568.png exactly) */}
       {/* ========================================================= */}
-      <div className="p-6 pt-5 pb-4 space-y-3 shrink-0">
+      <div className="p-6 pt-2 pb-4 space-y-3 shrink-0">
         <button
           type="button"
           onClick={onBack}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Check, Star, Heart, ShieldCheck, Home, Share2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Star, Heart, ShieldCheck, Home, Share2 } from 'lucide-react';
 import { TucoMascot } from '../../TucoMascot';
 
 interface ScreenOnboardingTransitionProps {
@@ -7,6 +7,7 @@ interface ScreenOnboardingTransitionProps {
   age: number;
   selectedGoals: string[];
   onFinishOnboarding: () => void;
+  onBack?: () => void;
   isWireframe?: boolean;
 }
 
@@ -15,18 +16,39 @@ export const ScreenOnboardingTransition: React.FC<ScreenOnboardingTransitionProp
   age = 8,
   selectedGoals = ['sun', 'hair'],
   onFinishOnboarding,
+  onBack,
   isWireframe = false,
 }) => {
   return (
     <div
-      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 text-center ${
+      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 pt-3 text-center ${
         isWireframe
           ? 'bg-zinc-50 text-zinc-900'
           : 'bg-gradient-to-b from-[#FFFBEB] via-[#FEF3C7] to-[#FED543] text-stone-900'
       }`}
     >
+      {/* Authentic iOS Status Bar */}
+      <div className="w-full flex items-center justify-between text-xs px-2 pt-0.5 pb-2 font-semibold text-[#352002] shrink-0">
+        <span className="font-medium text-[11px]">9:41</span>
+        <div className="w-18 h-3.5 bg-black/20 rounded-full" />
+        <div className="flex items-center gap-1 text-[10px]">
+          <span>5G</span>
+          <span className="w-4 h-2 border border-current rounded-2xs inline-block relative after:content-[''] after:w-0.5 after:h-1 after:bg-current after:absolute after:-right-0.5 after:top-0.5" />
+        </div>
+      </div>
+
       {/* Top Header matching Reference 571 ("Congrats! The quiz is done") */}
-      <div className="pt-4 space-y-1.5">
+      <div className="space-y-1.5 shrink-0 relative">
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="absolute left-0 top-0 w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center transition-transform active:scale-95 shadow-xs"
+            title="Back"
+          >
+            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+          </button>
+        )}
         <span className="text-[10px] font-bold font-['Poppins'] uppercase tracking-wider bg-white/80 text-amber-900 px-3 py-1 rounded-full shadow-2xs">
           Diagnostic Complete
         </span>

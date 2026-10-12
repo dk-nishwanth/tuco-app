@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { ArrowRight, Delete, X, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Delete, X, Sparkles } from 'lucide-react';
 import { TucoMascot } from '../../TucoMascot';
 
 interface ScreenOnboardingNameProps {
   name: string;
   onChangeName: (name: string) => void;
   onNext: () => void;
+  onBack?: () => void;
   isWireframe?: boolean;
 }
 
@@ -13,6 +14,7 @@ export const ScreenOnboardingName: React.FC<ScreenOnboardingNameProps> = ({
   name,
   onChangeName,
   onNext,
+  onBack,
   isWireframe = false,
 }) => {
   const [localName, setLocalName] = useState(name || 'Omar');
@@ -40,16 +42,38 @@ export const ScreenOnboardingName: React.FC<ScreenOnboardingNameProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 ${
+      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 pt-3 ${
         isWireframe ? 'bg-zinc-50 text-zinc-900' : 'bg-[#FAF8F5] text-stone-900'
       }`}
     >
+      {/* Authentic iOS Status Bar */}
+      <div className="w-full flex items-center justify-between text-xs px-2 pt-0.5 pb-2 font-semibold text-stone-800 shrink-0">
+        <span className="font-medium text-[11px]">9:41</span>
+        <div className="w-18 h-3.5 bg-black/20 rounded-full" />
+        <div className="flex items-center gap-1 text-[10px]">
+          <span>5G</span>
+          <span className="w-4 h-2 border border-current rounded-2xs inline-block relative after:content-[''] after:w-0.5 after:h-1 after:bg-current after:absolute after:-right-0.5 after:top-0.5" />
+        </div>
+      </div>
+
       {/* Top Header Prompt matching Reference 570 & 576 */}
-      <div className="pt-4 space-y-3">
+      <div className="space-y-3 shrink-0">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold font-['Poppins'] bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full uppercase tracking-wider">
-            Step 1 of 4 • Profile
-          </span>
+          <div className="flex items-center gap-2">
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center transition-transform active:scale-95 shadow-xs"
+                title="Back"
+              >
+                <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            )}
+            <span className="text-[10px] font-bold font-['Poppins'] bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Step 1 of 4 • Profile
+            </span>
+          </div>
           <button
             type="button"
             onClick={() => setShowKeyboard(!showKeyboard)}

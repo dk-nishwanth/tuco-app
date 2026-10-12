@@ -14,14 +14,24 @@ export const ScreenOnboardingSplash: React.FC<ScreenOnboardingSplashProps> = ({
 }) => {
   return (
     <div
-      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 ${
+      className={`relative w-full h-full flex flex-col justify-between font-['Poppins'] select-none overflow-hidden p-6 pt-3 ${
         isWireframe
           ? 'bg-zinc-100 text-zinc-900'
           : 'bg-[#FED543] text-[#352002]'
       }`}
     >
+      {/* Authentic iOS Status Bar */}
+      <div className="w-full flex items-center justify-between text-xs px-2 pt-0.5 pb-2 font-semibold text-[#352002] shrink-0">
+        <span className="font-medium text-[11px]">9:41</span>
+        <div className="w-18 h-3.5 bg-black/20 rounded-full" />
+        <div className="flex items-center gap-1 text-[10px]">
+          <span>5G</span>
+          <span className="w-4 h-2 border border-current rounded-2xs inline-block relative after:content-[''] after:w-0.5 after:h-1 after:bg-current after:absolute after:-right-0.5 after:top-0.5" />
+        </div>
+      </div>
+
       {/* Top Brand Badges */}
-      <div className="pt-4 flex items-center justify-between">
+      <div className="flex items-center justify-between shrink-0">
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/10 backdrop-blur-xs text-[10px] font-bold tracking-wider uppercase font-['Poppins']">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>100% Kid Safe & Natural</span>

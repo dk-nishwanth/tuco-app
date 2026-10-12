@@ -69,8 +69,18 @@ export const ScreenStreakPage: React.FC<ScreenStreakPageProps> = ({
         isWireframe ? 'bg-zinc-50 text-zinc-900' : 'bg-[#FAF8F5] text-stone-900'
       }`}
     >
+      {/* Authentic iOS Status Bar */}
+      <div className="w-full flex items-center justify-between text-xs px-6 pt-3 pb-1 font-semibold text-stone-800 shrink-0">
+        <span className="font-medium text-[11px]">9:41</span>
+        <div className="w-18 h-3.5 bg-black/20 rounded-full" />
+        <div className="flex items-center gap-1 text-[10px]">
+          <span>5G</span>
+          <span className="w-4 h-2 border border-current rounded-2xs inline-block relative after:content-[''] after:w-0.5 after:h-1 after:bg-current after:absolute after:-right-0.5 after:top-0.5" />
+        </div>
+      </div>
+
       {/* Scrollable Container */}
-      <div className="flex-1 overflow-y-auto hide-scrollbar px-4 pt-3 pb-8 space-y-4">
+      <div className="flex-1 overflow-y-auto hide-scrollbar px-4 pt-1 pb-8 space-y-4">
         {/* Top Header */}
         <div className="flex items-center justify-between pt-1">
           <button

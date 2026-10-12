@@ -1,12 +1,22 @@
 import React from 'react';
 
 export type LangviMascotType = 'yellow' | 'blue' | 'pink' | 'purple';
-export type LangviExpression = 'celebrate' | 'idea' | 'sleeping' | 'kiss' | 'happy' | 'smile' | 'glasses';
+export type LangviExpression =
+  | 'celebrate'
+  | 'idea'
+  | 'sleeping'
+  | 'kiss'
+  | 'happy'
+  | 'smile'
+  | 'glasses'
+  | 'zen'
+  | 'open_mouth'
+  | 'waving';
 
 interface LangviMascotProps {
   type?: LangviMascotType;
   expression?: LangviExpression;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'giant';
   className?: string;
   hasIdea?: boolean;
   isWireframe?: boolean;
@@ -26,123 +36,405 @@ export const LangviMascot: React.FC<LangviMascotProps> = ({
     md: 'w-24 h-24',
     lg: 'w-36 h-36',
     xl: 'w-48 h-48',
+    giant: 'w-64 h-64',
   };
 
   const getColors = () => {
     if (isWireframe) {
-      return { body: '#F4F4F5', stroke: '#52525B', cheek: '#E4E4E7' };
+      return {
+        body: '#F4F4F5',
+        stroke: '#27272A',
+        cheek: '#E4E4E7',
+        highlight: '#FFFFFF',
+      };
     }
     switch (type) {
       case 'yellow':
-        return { body: '#FEE55A', stroke: '#2A2004', cheek: '#F9A8D4' };
+        return {
+          body: '#FEE343',
+          stroke: '#1A1A1A',
+          cheek: '#FF9EC3',
+          highlight: '#FFF6A5',
+        };
       case 'blue':
-        return { body: '#A7E8FC', stroke: '#0C4A6E', cheek: '#F9A8D4' };
+        return {
+          body: '#9BE4FB',
+          stroke: '#1A1A1A',
+          cheek: '#FF9EC3',
+          highlight: '#DDF7FF',
+        };
       case 'pink':
-        return { body: '#FBCFE8', stroke: '#831843', cheek: '#FDA4AF' };
+        return {
+          body: '#F8B4D9',
+          stroke: '#1A1A1A',
+          cheek: '#FF70A6',
+          highlight: '#FFE4F2',
+        };
       case 'purple':
-        return { body: '#A78BFA', stroke: '#4C1D95', cheek: '#DDD6FE' };
+        return {
+          body: '#8672F7',
+          stroke: '#1A1A1A',
+          cheek: '#C4B5FD',
+          highlight: '#DDD6FE',
+        };
     }
   };
 
   const { body, stroke, cheek } = getColors();
 
   return (
-    <div className={`relative inline-flex items-center justify-center select-none ${sizeMap[size]} ${className}`}>
-      {/* Lightbulb Idea indicator */}
-      {hasIdea && !isWireframe && (
-        <div className="absolute -top-3 right-0 text-xl animate-bounce">
-          💡
-        </div>
-      )}
-
-      <svg viewBox="0 0 160 160" fill="none" className="w-full h-full filter drop-shadow-xs">
-        {/* Legs if standing */}
-        {expression === 'idea' && (
-          <g id="legs">
-            <path d="M60 120 L50 148" stroke={stroke} strokeWidth="8" strokeLinecap="round" />
-            <path d="M100 120 L110 148" stroke={stroke} strokeWidth="8" strokeLinecap="round" />
+    <div
+      className={`relative inline-flex items-center justify-center select-none ${sizeMap[size]} ${className}`}
+    >
+      <svg
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full filter drop-shadow-sm overflow-visible"
+      >
+        {/* LEGS: Standing poses */}
+        {(expression === 'idea' || expression === 'celebrate') && (
+          <g id="standing-legs">
+            <path
+              d="M75 140 L68 185"
+              stroke={body}
+              strokeWidth="20"
+              strokeLinecap="round"
+            />
+            <path
+              d="M125 140 L132 185"
+              stroke={body}
+              strokeWidth="20"
+              strokeLinecap="round"
+            />
           </g>
         )}
 
         {expression === 'kiss' && (
-          <g id="legs-blue">
-            <path d="M65 115 L60 150" stroke="#7DD3FC" strokeWidth="12" strokeLinecap="round" />
-            <path d="M95 115 L100 150" stroke="#7DD3FC" strokeWidth="12" strokeLinecap="round" />
+          <g id="blue-legs">
+            <path
+              d="M80 145 L74 190"
+              stroke={body}
+              strokeWidth="22"
+              strokeLinecap="round"
+            />
+            <path
+              d="M120 145 L135 190"
+              stroke={body}
+              strokeWidth="22"
+              strokeLinecap="round"
+            />
           </g>
         )}
 
-        {/* Arms */}
+        {/* ARMS: Idea arm pointing up on the left */}
         {expression === 'idea' && (
-          <g id="arms">
-            {/* Left arm pointing up */}
-            <path d="M40 85 L28 60 L28 45" stroke={body} strokeWidth="10" strokeLinecap="round" />
-            <path d="M40 85 L28 60 L28 45" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-            <circle cx="28" cy="45" r="4" fill={stroke} />
+          <g id="left-arm-pointing">
+            <path
+              d="M55 105 C42 95 38 75 42 55"
+              stroke={body}
+              strokeWidth="16"
+              strokeLinecap="round"
+              fill="none"
+            />
+            {/* Hand with finger lines */}
+            <circle cx="42" cy="50" r="10" fill={body} />
+            <path
+              d="M38 42 L38 35 M43 40 L43 32 M48 42 L48 35"
+              stroke={stroke}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
           </g>
         )}
 
-        {/* Body droplet shape with top crest */}
+        {/* ARMS: Idea arm resting on hip on the right */}
+        {expression === 'idea' && (
+          <g id="right-arm-hip">
+            <path
+              d="M145 105 C162 108 165 125 148 132"
+              stroke={body}
+              strokeWidth="15"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </g>
+        )}
+
+        {/* ARMS: Celebrate arms raised up */}
+        {expression === 'celebrate' && (
+          <g id="celebrate-arms">
+            <path
+              d="M50 110 C32 95 35 70 48 60"
+              stroke={body}
+              strokeWidth="15"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M150 110 C168 95 165 70 152 60"
+              stroke={body}
+              strokeWidth="15"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </g>
+        )}
+
+        {/* ARMS: Waving arms for Screen 10 */}
+        {expression === 'waving' && (
+          <g id="waving-arms">
+            <path
+              d="M50 100 C30 90 25 75 35 65"
+              stroke={body}
+              strokeWidth="16"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M60 120 C35 125 25 140 40 150"
+              stroke={body}
+              strokeWidth="16"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </g>
+        )}
+
+        {/* BODY: Plump teardrop with 3 distinctive hair tufts on top */}
         <path
-          d="M80 15 C88 28 98 32 108 42 C125 58 135 80 135 104 C135 128 112 142 80 142 C48 142 25 128 25 104 C25 80 35 58 52 42 C62 32 72 28 80 15 Z"
+          d="
+            M100 28
+            C108 18 116 20 118 30
+            C126 30 134 38 130 46
+            C148 58 168 85 168 115
+            C168 152 138 168 100 168
+            C62 168 32 152 32 115
+            C32 85 52 58 70 46
+            C66 38 74 30 82 30
+            C84 20 92 18 100 28
+            Z
+          "
           fill={body}
-          stroke={stroke}
-          strokeWidth="3.5"
-          strokeLinejoin="round"
         />
 
-        {/* Rosy Cheeks */}
-        <circle cx="50" cy="98" r="9" fill={cheek} />
-        <circle cx="110" cy="98" r="9" fill={cheek} />
+        {/* ROSY CHEEKS: Big friendly circles */}
+        <ellipse cx="62" cy="118" rx="14" ry="12" fill={cheek} />
+        <ellipse cx="138" cy="118" rx="14" ry="12" fill={cheek} />
 
-        {/* Eyes & Mouth Expressions */}
-        {expression === 'celebrate' && (
-          <g>
-            <circle cx="62" cy="76" r="4.5" fill={stroke} />
-            <circle cx="98" cy="76" r="4.5" fill={stroke} />
+        {/* EXPRESSION 1: Happy Open Smiling Mouth with Tongue */}
+        {(expression === 'celebrate' || expression === 'open_mouth') && (
+          <g id="open-mouth-face">
+            {/* Eyes: Round black dots with highlight */}
+            <circle cx="78" cy="92" r="6" fill={stroke} />
+            <circle cx="76" cy="90" r="2" fill="#FFFFFF" />
+
+            <circle cx="122" cy="92" r="6" fill={stroke} />
+            <circle cx="120" cy="90" r="2" fill="#FFFFFF" />
+
+            {/* Little curved eyebrows */}
+            <path
+              d="M72 82 Q78 78 84 82"
+              stroke={stroke}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M116 82 Q122 78 128 82"
+              stroke={stroke}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+
             {/* Open Happy Mouth */}
             <path
-              d="M72 88 Q80 102 88 88 Z"
+              d="M90 106 C90 124 110 124 110 106 Z"
               fill={stroke}
             />
-            <path d="M74 94 Q80 98 86 94" fill="#F43F5E" />
+            {/* Pink Tongue */}
+            <path
+              d="M93 116 C98 122 102 122 107 116 Z"
+              fill="#FF70A6"
+            />
           </g>
         )}
 
+        {/* EXPRESSION 2: Idea Face (Happy, looking up with focus) */}
         {expression === 'idea' && (
-          <g>
-            <ellipse cx="64" cy="75" rx="3.5" ry="4.5" fill={stroke} />
-            <ellipse cx="96" cy="75" rx="3.5" ry="4.5" fill={stroke} />
-            <path d="M75 88 Q80 95 85 88" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
+          <g id="idea-face">
+            <circle cx="80" cy="94" r="5.5" fill={stroke} />
+            <circle cx="78" cy="92" r="1.8" fill="#FFFFFF" />
+
+            <circle cx="120" cy="94" r="5.5" fill={stroke} />
+            <circle cx="118" cy="92" r="1.8" fill="#FFFFFF" />
+
+            {/* Eyebrows */}
+            <path
+              d="M74 84 Q80 80 86 84"
+              stroke={stroke}
+              strokeWidth="2.8"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M114 84 Q120 80 126 84"
+              stroke={stroke}
+              strokeWidth="2.8"
+              strokeLinecap="round"
+              fill="none"
+            />
+
+            {/* Open smiling mouth */}
+            <path
+              d="M92 108 C92 122 108 122 108 108 Z"
+              fill={stroke}
+            />
+            <path
+              d="M95 116 C98 120 102 120 105 116 Z"
+              fill="#FF70A6"
+            />
           </g>
         )}
 
+        {/* EXPRESSION 3: Zen / Sleeping closed serene curved eyes (Screen 7 Login) */}
+        {(expression === 'sleeping' || expression === 'zen') && (
+          <g id="zen-face">
+            {/* Serene downward-curving eyes */}
+            <path
+              d="M68 95 C74 105 86 105 92 95"
+              stroke={stroke}
+              strokeWidth="4"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M108 95 C114 105 126 105 132 95"
+              stroke={stroke}
+              strokeWidth="4"
+              strokeLinecap="round"
+              fill="none"
+            />
+
+            {/* Eyebrows */}
+            <path
+              d="M72 82 Q80 77 88 82"
+              stroke={stroke}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M112 82 Q120 77 128 82"
+              stroke={stroke}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+
+            {/* Gentle smile */}
+            <path
+              d="M94 116 Q100 124 106 116"
+              stroke={stroke}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </g>
+        )}
+
+        {/* EXPRESSION 4: Blowing Kiss (Screen 8 Milestone) */}
         {expression === 'kiss' && (
-          <g>
-            {/* Closed pleased eyes */}
-            <path d="M56 74 Q62 70 68 74" stroke={stroke} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-            <path d="M92 74 Q98 70 104 74" stroke={stroke} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-            {/* Cute kissy mouth '3' / 'ε' */}
-            <path d="M76 86 C82 84 82 89 77 90 C82 91 82 96 76 94" stroke={stroke} strokeWidth="3" strokeLinecap="round" fill="none" />
+          <g id="kiss-face">
+            {/* Happy closed eyes */}
+            <path
+              d="M70 94 Q78 88 86 94"
+              stroke={stroke}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M114 94 Q122 88 130 94"
+              stroke={stroke}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+
+            {/* Kissy mouth '3' */}
+            <path
+              d="M95 110 C101 107 101 113 97 114 C101 115 101 121 95 118"
+              stroke={stroke}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
           </g>
         )}
 
-        {expression === 'sleeping' && (
-          <g>
-            <path d="M56 78 Q62 84 68 78" stroke={stroke} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-            <path d="M92 78 Q98 84 104 78" stroke={stroke} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-            <path d="M76 94 Q80 98 84 94" stroke={stroke} strokeWidth="3" strokeLinecap="round" fill="none" />
-          </g>
-        )}
-
+        {/* EXPRESSION 5: Spectacles / Glasses (Screen 9 Jacob & Screen 3 Calendar) */}
         {expression === 'glasses' && (
-          <g>
-            {/* Glasses frame */}
-            <circle cx="62" cy="75" r="10" stroke={stroke} strokeWidth="3" fill="none" />
-            <circle cx="98" cy="75" r="10" stroke={stroke} strokeWidth="3" fill="none" />
-            <line x1="72" y1="75" x2="88" y2="75" stroke={stroke} strokeWidth="3" />
-            <circle cx="62" cy="75" r="3.5" fill={stroke} />
-            <circle cx="98" cy="75" r="3.5" fill={stroke} />
-            <path d="M75 95 Q80 100 85 95" stroke={stroke} strokeWidth="3" strokeLinecap="round" fill="none" />
+          <g id="glasses-face">
+            {/* Black round spectacles */}
+            <circle
+              cx="76"
+              cy="95"
+              r="15"
+              stroke={stroke}
+              strokeWidth="3.5"
+              fill="none"
+            />
+            <circle
+              cx="124"
+              cy="95"
+              r="15"
+              stroke={stroke}
+              strokeWidth="3.5"
+              fill="none"
+            />
+            {/* Bridge */}
+            <line
+              x1="91"
+              y1="95"
+              x2="109"
+              y2="95"
+              stroke={stroke}
+              strokeWidth="3.5"
+            />
+
+            {/* Eyes inside glasses */}
+            <circle cx="76" cy="95" r="4.5" fill={stroke} />
+            <circle cx="124" cy="95" r="4.5" fill={stroke} />
+
+            {/* Cute smile */}
+            <path
+              d="M93 118 Q100 125 107 118"
+              stroke={stroke}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </g>
+        )}
+
+        {/* EXPRESSION 6: Simple Happy Smile */}
+        {(expression === 'happy' || expression === 'smile' || expression === 'waving') && (
+          <g id="happy-face">
+            <circle cx="78" cy="94" r="5.5" fill={stroke} />
+            <circle cx="76" cy="92" r="1.8" fill="#FFFFFF" />
+
+            <circle cx="122" cy="94" r="5.5" fill={stroke} />
+            <circle cx="120" cy="92" r="1.8" fill="#FFFFFF" />
+
+            <path
+              d="M92 114 Q100 124 108 114"
+              stroke={stroke}
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
           </g>
         )}
       </svg>
