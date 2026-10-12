@@ -123,7 +123,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               Kid-Safe Benefits
             </h4>
             <div className="space-y-1.5">
-              {product.benefits.map((b, i) => (
+              {product.benefits.map((b: string, i: number) => (
                 <div key={i} className="flex items-start gap-2 text-xs text-stone-700 font-body">
                   <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <span>{b}</span>
@@ -138,7 +138,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               Hero Plant & Mineral Ingredients
             </h4>
             <div className="flex flex-wrap gap-1.5">
-              {product.keyIngredients.map((ing, i) => (
+              {product.keyIngredients.map((ing: string, i: number) => (
                 <span
                   key={i}
                   className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-800"
@@ -156,7 +156,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               <span>Certified Child Safe Standards</span>
             </div>
             <div className="flex flex-wrap gap-2 text-[11px] text-amber-800">
-              {product.safetyCertifications.map((cert, i) => (
+              {product.safetyCertifications.map((cert: string, i: number) => (
                 <span key={i} className="font-medium">• {cert}</span>
               ))}
             </div>
