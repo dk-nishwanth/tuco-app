@@ -142,5 +142,5 @@ export interface TeenDiagnosticAnswers {
   spfDaily: boolean;
 }
 
-export type ViewMode = 'canvas' | 'simulator';
+export type ViewMode = 'canvas' | 'single' | 'simulator';
 export type VisualStyle = 'hifi' | 'wireframe';

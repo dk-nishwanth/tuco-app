@@ -9,6 +9,7 @@ interface PhoneFrameProps {
   isActive?: boolean;
   isWireframe?: boolean;
   onSelect?: () => void;
+  onInspectSeparately?: () => void;
   scale?: number;
   showArtboardLabel?: boolean;
   className?: string;
@@ -22,6 +23,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({
   isActive = false,
   isWireframe = false,
   onSelect,
+  onInspectSeparately,
   scale = 1,
   showArtboardLabel = true,
   className = '',
@@ -35,10 +37,12 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({
       {/* Artboard Header matching Figma screenshot */}
       {showArtboardLabel && (
         <div
-          onClick={onSelect}
-          className="flex items-center justify-between w-[375px] mb-3 px-1 cursor-pointer group"
+          className="flex items-center justify-between w-[375px] mb-3 px-1 group"
         >
-          <div className="flex items-center gap-2">
+          <div
+            onClick={onSelect}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <span className="font-['Poppins'] text-sm font-medium tracking-tight text-stone-300 group-hover:text-amber-400 transition-colors">
               {title}
             </span>
@@ -48,20 +52,40 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({
               </span>
             )}
           </div>
-          {/* Figma Diamond Component Icon matching screenshot */}
-          <div className="flex items-center opacity-70 group-hover:opacity-100 transition-opacity">
-            <svg
-              className="w-4 h-4 text-stone-400"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+
+          <div className="flex items-center gap-2">
+            {onInspectSeparately && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onInspectSeparately();
+                }}
+                className="opacity-0 group-hover:opacity-100 px-2 py-0.5 rounded-md bg-stone-800 hover:bg-[#F06553] text-[10px] font-['Poppins'] font-semibold text-stone-200 hover:text-white transition-all shadow-xs"
+                title="Inspect Screen Separately"
+              >
+                Inspect ↗
+              </button>
+            )}
+
+            {/* Figma Diamond Component Icon */}
+            <div
+              onClick={onSelect}
+              className="cursor-pointer flex items-center opacity-70 group-hover:opacity-100 transition-opacity"
             >
-              <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
-              <rect x="7" y="7" width="10" height="10" rx="1" transform="rotate(45 12 12)" />
-            </svg>
+              <svg
+                className="w-4 h-4 text-stone-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
+                <rect x="7" y="7" width="10" height="10" rx="1" transform="rotate(45 12 12)" />
+              </svg>
+            </div>
           </div>
         </div>
       )}
